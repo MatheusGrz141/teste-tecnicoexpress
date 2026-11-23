@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Paleta igual à do Chamado Express (front-express-main/src/styles/_tokens.scss). Cores em HSL. */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 24 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 10%;
+
+    --primary: 25 90% 54%; /* #f47a20 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 33% 97%;
+    --secondary-foreground: 24 10% 10%;
+    --muted: 34 26% 94%;
+    --muted-foreground: 30 8% 39%;
+    --accent: 27 100% 95%; /* #fff1e6 */
+    --accent-foreground: 22 90% 37%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 33 21% 90%;
+    --input: 33 21% 88%;
+    --ring: 25 90% 54%;
+    --radius: 0.75rem;
+
+    /* Marca */
+    --brand-hover: 25 86% 49%; /* #e86c12 */
+    --brand-text: 22 90% 37%; /* #b4470a: laranja para texto sobre claro */
+    --brand-dark: 30 100% 15%; /* #4d2900 */
+    --ink: 24 14% 8%;
+
+    /* Compatibilidade com classes antigas */
+    --techno-orange: var(--primary);
+    --techno-black: var(--ink);
+    --techno-gray: var(--secondary);
+    --techno-gray-dark: var(--muted-foreground);
+    --gradient-primary: linear-gradient(135deg, hsl(25 90% 54%), hsl(22 90% 37%));
+    --gradient-hero: radial-gradient(80% 60% at 85% 0%, hsl(27 100% 95%), transparent 70%);
+    --gradient-cta: linear-gradient(135deg, hsl(25 90% 54%), hsl(25 86% 49%));
+
+    --shadow-card: 0 2px 4px rgb(41 24 10 / 0.05), 0 6px 16px -6px rgb(41 24 10 / 0.12);
+    --shadow-lift: 0 4px 8px rgb(41 24 10 / 0.06), 0 18px 36px -14px rgb(120 60 10 / 0.28);
+    --shadow-button: 0 6px 18px -6px hsl(25 90% 54% / 0.55);
+    --shadow-hero: 0 30px 60px -28px rgb(120 60 10 / 0.45);
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3 {
+    @apply tracking-tight text-[hsl(var(--ink))];
+    text-wrap: balance;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent-foreground;
+  }
+  .text-brand {
+    color: hsl(var(--brand-text));
+  }
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .card-site {
+    @apply rounded-2xl border bg-card p-6;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s;
+  }
+  .card-site-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+    border-color: hsl(var(--primary) / 0.35);
+  }
+  .icon-tile {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold sm:text-base;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s var(--ease-out);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground;
+    box-shadow: var(--shadow-button);
+  }
+  .btn-primary:hover {
+    background: hsl(var(--brand-hover));
+  }
+  .btn-whats {
+    @apply btn bg-[#1faa53] text-white hover:bg-[#178f45];
+  }
+  .btn-ghost {
+    @apply btn border bg-card text-foreground hover:border-primary/40 hover:bg-accent;
+  }
+  .btn-light {
+    @apply btn bg-white text-[hsl(var(--brand-text))] hover:bg-orange-50;
+  }
+  .field {
+    @apply w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+  /* Compatibilidade */
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+  .button-shadow {
+    box-shadow: var(--shadow-button);
+  }
+  .hero-shadow {
+    box-shadow: var(--shadow-hero);
+  }
+  .hover-scale {
+    @apply transition-transform duration-300 hover:-translate-y-0.5;
+  }
+}
+
+/* Entrada ao rolar: só opacidade + 16px, uma vez por elemento */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Troca de painel das abas */
+.panel-in {
+  animation: panel-in 0.35s var(--ease-out);
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .panel-in {
+    animation: none;
+  }
+  .card-site,
+  .btn {
+    transition: none;
+  }
+  .card-site-hover:hover {
+    transform: none;
+  }
+}
